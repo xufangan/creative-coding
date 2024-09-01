@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Tuto</title>
+    <link rel="stylesheet" href="./searchbar.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Trirong">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire-animation">
+    <script type="text/javascript" src="searchbar.js"></script>
+
+</head>
+
+
+<body 
+body {
+    font-family: "Audiowide", sans-serif; }
+style=" background-color: rgb(234, 4, 255);">
+<style>
+    </style>
+
+
+    
+    <h1 class="font-effect-fire-animation">Golden Tongues News search</h1>
+    
+
+    <h2>Please type in "Truth"</h2>
+    
+
+
+    <input type="search" value="" id="search" onchange="openPage()">
+
+    <script src="searchbar.js"></script>
+
+    <script>
+        
+        function openPage() {
+            var x = document.getElementById("search").value;
+
+            if (x === "Truth") {
+                window.open("flip.html");
+            }
+        }
+
+        
+    </script>
+
+<style>
+
+    .Fake {
+      font-size: 20pt;
+      background-color: #F00;
+      color: #FFF;
+      padding: 24pt;
+    }
+    .True {
+      font-size: 20pt;
+      background-color: #00F;
+      color: #FFF;
+    }
+  </style>
+    
+</body>
+
+
+</html>
