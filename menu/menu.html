@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curtain Reveal Dropdowns</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f8f9fb;
+    }
+
+    /* --- NAVIGATION BAR --- */
+    .nav {
+      background: #0b0d17;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav a,
+    .nav button {
+      color: white;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav button:focus {
+      outline: none;
+    }
+
+    /* --- DROPDOWN PANEL --- */
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height:500px;
+      background: white;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        max-height 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+        opacity 0.4s ease;
+      z-index: 5; /* stacking order */
+    }
+
+    /* Matte overlay effect */
+    /* .dropdown::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.05);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    } */
+
+    /* Active state */
+    .dropdown.open {
+      max-height: 400px; /* larger dropdown */
+      opacity: 1;
+      pointer-events: all;
+      z-index: 10;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    /* .dropdown.open::before {
+      opacity: 1;
+    } */
+
+    .dropdown-content {
+      position: relative;
+      padding: 2rem 3rem;
+      animation: revealContent 0.5s ease-out forwards;
+    }
+
+    .dropdown-content h3 {
+      margin-top: 0;
+      color: #0b0d17;
+    }
+
+    .dropdown-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @keyframes revealContent {
+      from {
+        transform: translateY(-15px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <ul class="nav-links">
+      <li><button data-menu="products">Products</button></li>
+      <li><button data-menu="markets">Markets</button></li>
+      <li><button data-menu="media">Media</button></li>
+    </ul>
+
+    <!-- Dropdown Panels -->
+    <div id="products" class="dropdown">
+      <div class="dropdown-content">
+        <h3>Our Products</h3>
+        <ul>
+          <li><a href="#">Equity Research</a></li>
+          <li><a href="#">Fixed Income Insights</a></li>
+          <li><a href="#">FX Analytics</a></li>
+          <li><a href="#">Commodities Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="markets" class="dropdown">
+      <div class="dropdown-content">
+        <h3>Market Coverage</h3>
+        <ul>
+          <li><a href="#">Global Indices</a></li>
+          <li><a href="#">Currencies</a></li>
+          <li><a href="#">Commodities</a></li>
+          <li><a href="#">Fixed Income</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="media" class="dropdown">
+      <div class="dropdown-content">
+        <h3>Media & Reports</h3>
+        <ul>
+          <li><a href="#">Podcasts</a></li>
+          <li><a href="#">Video Briefings</a></li>
+          <li><a href="#">Expert Interviews</a></li>
+          <li><a href="#">Market Events</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    const buttons = document.querySelectorAll(".nav button[data-menu]");
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const targetId = button.getAttribute("data-menu");
+        const targetDropdown = document.getElementById(targetId);
+
+        // Close other dropdowns
+        dropdowns.forEach(drop => {
+          if (drop !== targetDropdown) drop.classList.remove("open");
+        });
+
+        // Toggle current dropdown
+        targetDropdown.classList.toggle("open");
+      });
+    });
+
+    // Close all dropdowns when clicking outside nav
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".nav")) {
+        dropdowns.forEach(drop => drop.classList.remove("open"));
+      }
+    });
+  </script>
+
+</body>
+</html>
